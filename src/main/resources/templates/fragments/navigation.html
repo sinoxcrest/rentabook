@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="https:www.thymeleaf.org">
+<div th:fragment="navbar">
+    <link rel="stylesheet" href="" th:href="@{/css/style.css}"/>
+    <div id="logo">
+        <img width="40px" th:src="@{images/home.png}"/>
+    </div>
+    <br>
+    <h2> <a th:href="@{/}">Book Renting</a></h2>
+    <ul class="lisst-unstyled components">
+        <li class="active">
+    <a href="#metaData" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Master Data</a>
+    <ul class="collapse lisst-unstyled" id="metaData">
+        <li>
+            <a th:href="@{/category}" >Category</a>
+        </li>
+        <li>
+            <a th:href="@{/author}">Author</a>
+        </li>
+        <li>
+            <a th:href="@{/books}">Book</a>
+        </li>
+        <li>
+            <a th:href="@{/member}">Member</a>
+        </li>
+
+    </ul>
+</li>
+    </ul>
+    <ul class="lisst-unstyled components">
+<li class="active">
+        <a href="#metaData1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Transaction Data</a>
+        <ul class="collapse lisst-unstyled" id="metaData1">
+            <li>
+                <a th:href="@{/books_transactions}">Rent A Book</a>
+            </li>
+            <li>
+                <a th:href="@{/books_return}">Return A Book</a>
+            </li>
+
+        </ul>
+    </li>
+    </ul>
+</div>
+
+
+</html>

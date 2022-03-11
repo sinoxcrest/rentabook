@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th="https:www.thymeleaf.org">
+<div th:replace="fragments/common-css :: generic_css"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edgegi">
+    <title>Book Renting System</title>
+</head>
+<body>
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+
+            <div th:replace="fragments/navigation :: navbar"></div>
+
+        </div>
+
+    </nav>
+    <div id="content" class="col-md-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+            </div>
+
+        </nav>
+        <br><br>
+
+        <form  th:action="@{~/author/create}" th:object="${authorDto}" method="post">
+            <u><h2>Author</h2></u>
+            <input type="text" class="form-control" th:field="*{id}" hidden   maxlength="100">
+            <div class="mb-3">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control" th:field="*{firstname}"    maxlength="100">
+            </div>
+            <p class="error" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></p>
+            <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" th:field="*{lastname}"    maxlength="100">
+            </div>
+            <p class="error" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></p>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" th:field="*{email}" maxlength="100">
+            </div>
+            <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            <div class="mb-3">
+                <label class="form-label">Mobile Number</label>
+                <input type="text" class="form-control" th:field="*{mobileno}"   maxlength="10">
+            </div>
+            <p class="error" th:if="${#fields.hasErrors('mobileno')}" th:errors="*{mobileno}"></p>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p th:text="${message}"></p>
+    </div>
+    <div class="col-md-8">
+
+        <u> <h2>Author List</h2></u>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>SN</td>
+                <td>Full Name</td>
+                <td>Email</td>
+                <td>Mobile Number</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i:${authorDtoList}">
+                <td th:text="${i.id}"></td>
+                <td th:text="${i.firstname+' '+i.lastname}"></td>
+                <td th:text="${i.email}"></td>
+                <td th:text="${i.mobileno}"></td>
+                <td> <a th:href="@{~/author/edit/}+${i.id}" ><button class="btn btn-success">Edit</button></a>
+                    <a th:href="@{~/author/delete/}+${i.id}" ><button class="btn btn-danger">Delete</button></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+<script>
+    $(document).ready(function(){
+        $("#sidebarCollapse").on('click',function (){
+            $("#sidebar").toggleClass('active');
+        });
+    });
+</script>
+</body>
+</html>

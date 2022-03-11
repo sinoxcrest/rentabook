@@ -1,0 +1,11 @@
+1-Check if the port is used by any other terms in this case I use port 8080
+Open CMD with administrator then type
+netstat -ano | findstr :8080
+after pressing enter you will see the port used by the PID
+then type
+taskkill /PID <PID> /F
+press enter and kill the task
+2-After that include all the maven dependency on the pom.xml
+3-Run the application
+4-Go to localhost://8080 in my case
+5-Application is good to go

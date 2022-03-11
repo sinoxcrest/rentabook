@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https:www.thymeleaf.org">
+<div th:replace="fragments/common-css :: generic_css"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Book Renting System</title>
+</head>
+<body>
+<div class="wrapper">
+  <nav id="sidebar">
+    <div class="sidebar-header">
+
+      <div th:replace="fragments/navigation :: navbar"></div>
+
+    </div>
+
+  </nav>
+  <div id="content" class="col-md-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fas fa-align-left"></i>
+        </button>
+        <h5>THIS IS HOME PAGE</h5>
+        </div>
+    </nav>
+    <br><br>
+    <p>Buying books could be expensive and purchasing textbooks could be even costlier. Luckily, we can rent books same like renting rooms, vehicles, clothes, and other things in life.
+
+      Renting books are useful for students and book lovers who want to spend their money on books on a tight budget. </p>
+    <p>Is Textbook Rental Right for You?</p>
+    <p> YES if...</p>
+    <p>-You like your savings all at once up front (often 80% or more off new-book price).</p>
+    <p>-You don't want to keep the book when the term is finished.</p>
+    <p>-You take good care of your books and are cool with moderate or little highlighting.</p>
+    <p>-You care about minimizing your impact on the environment.</p>
+
+    <p>NO if...</p>
+
+    <p>-You tend to make a lot of marks in your books or you damage or lose them.</p>
+    <p>-You need all supplements such as CD-ROMs, workbooks, and access codes.</p>
+    <p>-You want to keep your books for future reference.</p>
+  <p>-You rely on getting some cash back at end-of-term buyback. </p>
+  </div>
+  <div id="homepagecover">
+    <img  width="90%" height="50%" th:src="@{images/homecover.jpg}"/>
+  </div>
+</div>
+  <script>
+    $(document).ready(function(){
+      $("#sidebarCollapse").on('click',function (){
+        $("#sidebar").toggleClass('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" xmlns:th="https:www.thymeleaf.org">
+<div th:replace="fragments/common-css :: generic_css"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book Renting System</title>
+</head>
+<body>
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+
+            <div th:replace="fragments/navigation :: navbar"></div>
+
+        </div>
+
+    </nav>
+    <div id="content" class="col-md-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+            </div>
+
+        </nav>
+        <br><br>
+
+        <form th:action="@{~/books_transactions/create}" th:object="${bookTransactionDto}" enctype="multipart/form-data" method="post">
+            <u><h2>Books Transaction</h2></u>
+            <div class="mb-3">
+                <label class="form-label"> Book Name:</label>
+                <select th:field="*{book}">
+                    <option value=""  selected hidden>Choose..</option>
+                    <option th:each="book: ${books}"  th:value="${book.id}" th:text="${book.name}" />
+                </select>
+            </div>
+            <p class="error" th:if="${#fields.hasErrors('book')}" th:errors="*{book}"></p>
+            <div class="mb-3">
+                <label class="form-label"> Member Name:</label>
+                <select th:field="*{member}">
+                    <option value=""  selected hidden>Choose..</option>
+                    <option th:each="member: ${members}"  th:value="${member.id}" th:text="${member.name}" />
+                </select>
+            </div>
+            <p class="error" th:if="${#fields.hasErrors('member')}" th:errors="*{member}"></p>
+
+            <div class="mb-3">
+                <label class="form-label">Book Code:</label>
+                <input type="text" class="form-control"    maxlength="100" th:field="*{code}">
+            </div>
+            <p class="error" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></p>
+            <div class="mb-3">
+                <label class="form-label">Number of Days</label>
+                <input type="number" class="form-control"     maxlength="100" th:field="*{noofdays}">
+            </div>
+            <p class="error" th:if="${#fields.hasErrors('noofdays')}" th:errors="*{noofdays}"></p>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p th:text="${message}"></p>
+
+    </div>
+    <div class="col-md-10">
+
+        <u> <h2>Books Transaction History</h2></u>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>SN</td>
+                <td>Book Name</td>
+                <td>Book Code</td>
+                <td>Member Name</td>
+                <td>From</td>
+                <td>To</td>
+                <td>Rent Status</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i:${bookTransactionDtoList}">
+                <td th:text="${i.id}"></td>
+                <td th:text="${i.bookname}"></td>
+                <td th:text="${i.code}"></td>
+                <td th:text="${i.membername}"></td>
+                <td th:text="${i.fromdate}"></td>
+                <td th:text="${i.todate}"></td>
+                <td th:text="${i.rentstatus}"></td>
+
+                <td> <a th:href="@{~/books_transactions/delete/}+${i.id}" ><button class="btn btn-danger">Delete</button></a>
+                </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#sidebarCollapse").on('click',function (){
+            $("#sidebar").toggleClass('active');
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $('#MultipleCheckboxes').multiselect({
+            enableClickableOptGroups: true,
+            includeSelectAllOption:true,
+            nonSelectedText: 'Choose..'
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" xmlns:th="https:www.thymeleaf.org">
+<div th:replace="fragments/common-css :: generic_css"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Book Renting System</title>
+</head>
+<body>
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+
+            <div th:replace="fragments/navigation :: navbar"></div>
+
+        </div>
+
+    </nav>
+    <div id="content" class="col-md-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+            </div>
+
+        </nav>
+        <br><br>
+
+            <u><h2>Books Return</h2></u>
+
+
+
+                <form th:action="@{~/books_return/create}"  id="codecontainer"  method="post" >
+
+                    <div class="mb-3">
+                        <label class="form-label"> Book Code:</label>
+
+                        <select name="code" id="valueselect" >
+                            <option value=""  hidden selected >Choose..</option>
+                            <option th:each="i:${bookReturnDtoList}" th:value="${i.id}" th:text="${i.code}" >
+                            </option>
+                        </select>
+                        <div class="mb-3">
+
+                            <a class="button" style="font: bold 11px Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;">Show Data</a>
+
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+                    <input type="text"  id="transactionid" hidden class="form-control"   disabled  maxlength="100">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" id="book" class="form-control" hidden disabled  maxlength="100">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Book Name:</label>
+                        <input type="text"  id="bookname" class="form-control" disabled  maxlength="100">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text"  id="member" class="form-control" hidden disabled  maxlength="100">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Member Name:</label>
+                        <input type="text" id="membername" class="form-control"  disabled  maxlength="100">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"> From Date:</label>
+                        <input type="text" id="fromdate" class="form-control"  disabled  maxlength="100">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> To Date:</label>
+                        <input type="text" t id="todate" class="form-control"  disabled  maxlength="100">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Rent Status:</label>
+                        <input type="text"  id="rentstatus" class="form-control"  disabled  maxlength="100">
+                    </div>
+                    <p th:id="js-error" style="color: red">
+                    </p>
+                    <h2>  <button class="btn btn-success" type="submit">RETURN</button></h2>
+                </form>
+
+
+
+
+    </div>
+    <div class="col-md-10">
+
+        <u> <h2>Books Transaction History</h2></u>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>SN</td>
+                <td>Book Name</td>
+                <td>Book Code</td>
+                <td>Member Name</td>
+                <td>From</td>
+                <td>To</td>
+                <td>Rent Status</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i:${bookReturnDtoList1}">
+                <td th:text="${i.id}"></td>
+                <td th:text="${i.bookname}"></td>
+                <td th:text="${i.code}"></td>
+                <td th:text="${i.membername}"></td>
+                <td th:text="${i.fromdate}"></td>
+                <td th:text="${i.todate}"></td>
+                <td th:text="${i.rentstatus}"></td>
+                <td><a th:href="@{~/books_return/book_return_view/}+${i.id}"><button class="btn btn-success">View</button></a></td>
+                <td> <a th:href="@{~/books_return/delete/}+${i.id}" ><button class="btn btn-danger">Delete</button></a>
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#sidebarCollapse").on('click',function (){
+            $("#sidebar").toggleClass('active');
+        });
+    });
+    document.getElementsByClassName("button")[0].addEventListener("click", function(event) {
+        var value = document.getElementById("valueselect").value;
+        event.target.setAttribute("href", "/books_return/book_return_view/"+value);
+
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $('#MultipleCheckboxes').multiselect({
+            enableClickableOptGroups: true,
+            includeSelectAllOption:true,
+            nonSelectedText: 'Choose..'
+        });
+    });
+</script>
+<script th:src="@{~/js/ajax.js}"></script>
+</body>
+</html>

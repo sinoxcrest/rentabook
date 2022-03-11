@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" xmlns:th="https:www.thymeleaf.org">
+<div th:replace="fragments/common-css :: generic_css"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Book Renting System</title>
+</head>
+<body>
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+
+            <div th:replace="fragments/navigation :: navbar"></div>
+
+        </div>
+
+    </nav>
+    <div class="col-md-4" id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button class="btn btn-info" id="sidebarCollapse" type="button">
+                    <i class="fas fa-align-left"></i>
+                </button>
+            </div>
+
+        </nav>
+        <br><br>
+
+        <form enctype="multipart/form-data" method="post" th:action="@{~/books/create}" th:object="${bookDto}">
+            <u><h2>Books</h2></u>
+            <input class="form-control" maxlength="100" th:field="*{id}" hidden>
+
+            <div class="mb-3">
+                <label class="form-label"> Category Name:</label>
+                <select th:field="*{category}">
+                    <option hidden selected value="">Choose..</option>
+                    <option th:each="category: ${categories}" th:text="${category.name}" th:value="${category.id}"/>
+                </select>
+            </div>
+            <p class="error" th:errors="*{category}" th:if="${#fields.hasErrors('category')}"></p>
+            <div class="container1">
+                <label class="form-label select-label"> Author Name:</label>
+                <select id="MultipleCheckboxes" multiple="multiple" th:field="*{authorList}">
+                    <option th:each="author: ${authors}" th:text="${author.firstname}" th:value="${author.id}"/>
+                </select>
+            </div>
+            <p class="error" th:errors="*{authorList}" th:if="${#fields.hasErrors('authorList')}"></p>
+            <div class="mb-3">
+                <label class="form-label">Book's Name</label>
+                <input class="form-control" maxlength="100" th:field="*{name}" type="text">
+            </div>
+            <p class="error" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p>
+            <div class="mb-3">
+                <label class="form-label">Number of Pages</label>
+                <input class="form-control" maxlength="100" th:field="*{noofpages}" type="number">
+            </div>
+            <p class="error" th:errors="*{noofpages}" th:if="${#fields.hasErrors('noofpages')}"></p>
+            <div class="mb-3">
+                <label class="form-label">ISBN</label>
+                <input class="form-control" maxlength="100" th:field="*{isbn}" type="text">
+            </div>
+            <p class="error" th:errors="*{isbn}" th:if="${#fields.hasErrors('isbn')}"></p>
+            <div class="mb-3">
+                <label class="form-label">Rating</label>
+                <input class="form-control" maxlength="100" th:field="*{rating}" type="number">
+            </div>
+            <p class="error" th:errors="*{rating}" th:if="${#fields.hasErrors('rating')}"></p>
+            <div class="mb-3">
+                <label class="form-label">Stock Count</label>
+                <input class="form-control" maxlength="100" th:field="*{stockcount}" type="number">
+            </div>
+            <p class="error" th:errors="*{stockcount}" th:if="${#fields.hasErrors('stockcount')}"></p>
+            <div class="mb-3">
+                <label class="form-label">Published Date</label>
+                <input class="form-control" maxlength="100" th:field="*{publisheddate}" th:max="${datenow}" type="date">
+            </div>
+            <p class="error" th:errors="*{publisheddate}" th:if="${#fields.hasErrors('publisheddate')}"></p>
+            <div class="mb-3">
+                <label class="form-label">Photo Cover</label>
+                <input class="form-control" th:field="*{multipartFile}" type="file">
+            </div>
+            <p th:text="${message1}" style="color: red"></p>
+            <p class="error" th:errors="*{multipartFile}" th:if="${#fields.hasErrors('multipartFile')}"></p>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+        <p th:text="${message}"></p>
+
+    </div>
+    <div class="col-md-10">
+
+        <u><h2>Books List</h2></u>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>SN</td>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Author</td>
+                <td>Number of Pages</td>
+                <td>ISBN</td>
+                <td>Rating</td>
+                <td>Stock Count</td>
+                <td>Published Date</td>
+                <td>Photo Cover</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i:${bookDtoList}">
+                <td th:text="${i.id}"></td>
+                <td th:text="${i.name}"></td>
+                <td th:text="${i.categoryname}"></td>
+                <td th:text="${i.authorname}"></td>
+                <td th:text="${i.noofpages}"></td>
+                <td th:text="${i.isbn}"></td>
+                <td th:text="${i.rating}"></td>
+                <td th:text="${i.stockcount}"></td>
+                <td th:text="${i.publisheddate}"></td>
+                <td th:text="${i.filepath}"></td>
+                <td>
+                    <a th:href="@{~/books/edit/}+${i.id}">
+                        <button class="btn btn-success">Edit</button>
+                    </a>
+                <td>
+
+                    <a th:href="@{~/books/view/}+${i.id}">
+                        <button class="btn btn-success">View</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{~/books/delete/}+${i.id}">
+                        <button class="btn btn-danger">Delete</button>
+                    </a>
+                </td>
+                </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+        <form method="post" th:action="@{books/generate}">
+            <button type="submit">Excel Generate</button>
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#sidebarCollapse").on('click', function () {
+            $("#sidebar").toggleClass('active');
+        });
+    });
+
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#MultipleCheckboxes').multiselect({
+            enableClickableOptGroups: true,
+            includeSelectAllOption: true,
+            nonSelectedText: 'Choose..'
+        });
+    });
+</script>
+</body>
+</html>

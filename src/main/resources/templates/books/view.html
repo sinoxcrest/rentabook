@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https:www.thymeleaf.org">
+<div th:replace="fragments/common-css :: generic_css"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edgegi">
+    <title>Book Renting System</title>
+</head>
+<body>
+<div>
+
+        <ul>
+            <p>* Author's Name:</p> <li th:text="${bookdto.authorname}"></li>
+            <p>* Category Name:</p> <li th:text="${bookdto.categoryname}"></li>
+            <p>* Book Name:</p> <li th:text="${bookdto.name}"></li>
+            <p>* Book ISBN:</p> <li th:text="${bookdto.isbn}"></li>
+            <p>* Book Rating:</p> <li th:text="${bookdto.rating}"></li>
+            <p>* Book Stock Count:</p> <li th:text="${bookdto.stockcount}"></li>
+            <p>* Book Published Date:</p> <li th:text="${bookdto.publisheddate}"></li>
+            <p>* Book Path:</p> <li th:text="${bookdto.filepath}"></li>
+        </ul>
+        <img id="viewimage" th:src="${bookdto.filepath}">
+</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https:www.thymeleaf.org" >
+<div th:replace="fragments/common-css :: generic_css"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edgegi">
+  <title>Book Renting System</title>
+</head>
+<body>
+<div th:fragment="return_view">
+
+
+
+        <u><h2>Id:</h2></u>
+        <h2 th:text="${bookReturnDtos.id}" th:value="${bookReturnDtos.id}"></h2>
+    <u><h2>Book's Name:</h2></u>
+     <h2 th:text="${bookReturnDtos.bookname}" th:value="${bookReturnDtos.book.id}"></h2>
+        <u><h2>Book's Code:</h2></u>
+        <h2 th:text="${bookReturnDtos.code}" th:value="${bookReturnDtos.code}"></h2>
+    <u><h2>From Date:</h2></u>
+     <h2  th:text="${bookReturnDtos.fromdate}"></h2>
+    <u><h2>To Date:</h2></u>
+    <h2 th:text="${bookReturnDtos.todate}"></h2>
+    <u><h2>Member's Name:</h2></u>
+     <h2  th:text="${bookReturnDtos.membername}" th:value="${bookReturnDtos.member.id}"></h2>
+    <u><h2>Rent Status:</h2></u>
+     <h2  th:text="${bookReturnDtos.rentstatus}" ></h2>
+
+
+      <h2>  <a th:href="@{~/books_return/create/}+${bookReturnDtos.id}" ><button>RETURN</button></a></h2>
+
+
+
+
+
+</div>
+</body>
+</html>
